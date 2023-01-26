@@ -12,6 +12,16 @@ class User(db.Model):
     role = db.Column(db.Text(10))
     phone = db.Column(db.Text(20))
 
+    def get_user(self):
+        return {
+            'id': self.id,
+            'first_name': self.first_name,
+            'last_name': self.last_name,
+            'age': self.age,
+            'email': self.email,
+            'role': self.role,
+            'phone': self.phone}
+
 
 class Order(db.Model):
     # Шаг №1: модель заказа
@@ -26,6 +36,18 @@ class Order(db.Model):
     customer_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     executor_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
+    def get_order(self):
+        return {
+            'id': self.id,
+            'name': self.name,
+            'description': self.description,
+            'start_date': self.start_date,
+            'end_date': self.end_date,
+            'address': self.address,
+            'price': self.price,
+            'customer_id': self.customer_id,
+            'executor_id': self.executor_id}
+
 
 class Offer(db.Model):
     # Шаг №1: модель предложения
@@ -33,3 +55,12 @@ class Offer(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     order_id = db.Column(db.Integer, db.ForeignKey('order.id'))
     executor_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+
+    order = db.relationship('Order')
+    user = db.relationship('User')
+
+    def get_offer(self):
+        return {
+            'id': self.id,
+            'order_id': self.order_id,
+            'executor_id': self.executor_id}
