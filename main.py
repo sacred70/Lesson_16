@@ -1,6 +1,6 @@
 from flask import Flask, request
 from flask_sqlalchemy import SQLAlchemy
-from functions import get_user, get_order, get_offer
+#from functions import get_user, get_order, get_offer
 from classes_mosel import User, Offer, Order 
 app = Flask(__name__)
 
